@@ -1,1 +1,363 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KASIDIT — Official Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #05070B;
+    --card-bg: rgba(13, 18, 28, 0.75);
+    --card-border: rgba(0, 242, 254, 0.15);
+    --cyan-glow: #00F2FE;
+    --blue-accent: #4FACFE;
+    --text-main: #F3F4F6;
+    --text-muted: #9CA3AF;
+  }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Prompt', 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-image: 
+      radial-gradient(circle at 50% 30%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(79, 172, 254, 0.05) 0%, transparent 50%);
+  }
+
+  /* --- CAR INTRO OVERLAY --- */
+  .car-intro {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    animation: fadeOutIntro 0.8s ease-in-out 3.8s forwards;
+  }
+
+  /* เงาและโครงรถสปอร์ตสีดำ */
+  .car-container {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    animation: carZoomIn 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .car-body {
+    width: 480px;
+    height: 140px;
+    background: linear-gradient(180deg, #151922 0%, #080A0F 70%, #000000 100%);
+    border-radius: 120px 120px 20px 20px;
+    position: relative;
+    box-shadow: 0 -5px 25px rgba(255, 255, 255, 0.03);
+  }
+
+  /* หลังคารถสปอร์ตทรงกระจกโค้ง */
+  .car-body::before {
+    content: '';
+    position: absolute;
+    top: -55px;
+    left: 110px;
+    width: 260px;
+    height: 80px;
+    background: linear-gradient(180deg, #1E2638 0%, #0A0D14 100%);
+    border-radius: 80px 80px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ไฟหน้ารถฝั่งซ้าย-ขวา (Headlights) */
+  .headlight {
+    position: absolute;
+    bottom: 35px;
+    width: 75px;
+    height: 18px;
+    background: #111;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .headlight.left { left: 30px; transform: skewX(-12deg); }
+  .headlight.right { right: 30px; transform: skewX(12deg); }
+
+  /* ตัวหลอด LED ในไฟหน้า */
+  .headlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #FFFFFF;
+    box-shadow: 0 0 25px var(--cyan-glow), 0 0 50px var(--cyan-glow);
+    opacity: 0;
+    animation: turnOnLights 0.4s ease-in 1.2s forwards;
+  }
+
+  /* แสงไฟหน้ารถพุ่งส่องออกมา (Light Beams) */
+  .light-beam {
+    position: absolute;
+    bottom: -80px;
+    width: 300px;
+    height: 600px;
+    background: linear-gradient(180deg, rgba(0, 242, 254, 0.8) 0%, rgba(79, 172, 254, 0.15) 40%, transparent 100%);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    opacity: 0;
+    filter: blur(15px);
+    pointer-events: none;
+  }
+
+  .light-beam.left { left: -120px; transform: rotate(-25deg); }
+  .light-beam.right { right: -120px; transform: rotate(25deg); }
+
+  .light-beam-active {
+    animation: beamFlash 0.5s ease-in 1.2s forwards, beamExpand 1.8s ease-out 1.7s forwards;
+  }
+
+  /* --- MAIN PROFILE CARD --- */
+  .card-wrapper {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+    animation: showCard 1s cubic-bezier(0.16, 1, 0.3, 1) 4s forwards;
+    padding: 20px;
+    width: 100%;
+    max-width: 540px;
+    z-index: 10;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 28px;
+    padding: 45px 35px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(0, 242, 254, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* เส้นแสงนีออนด้านบนการ์ด */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--cyan-glow), var(--blue-accent), transparent);
+  }
+
+  .badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 30px;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid rgba(0, 242, 254, 0.25);
+    color: var(--cyan-glow);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .badge-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan-glow);
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+
+  h1 {
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .intro-text {
+    font-size: 18px;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .highlight-name {
+    color: var(--cyan-glow);
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tag {
+    font-size: 12.5px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #D1D5DB;
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .github-note {
+    font-size: 13.5px;
+    color: #6B7280;
+    margin-bottom: 28px;
+  }
+
+  /* ปุ่มกดสั่งงานฉากเปิดซ้ำ หรือลิงก์ไปพอร์ต */
+  .btn-portfolio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 30px;
+    background: linear-gradient(135deg, var(--cyan-glow) 0%, var(--blue-accent) 100%);
+    color: #05070B;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 242, 254, 0.3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-portfolio:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 242, 254, 0.5);
+  }
+
+  /* --- KEYFRAME ANIMATIONS --- */
+  @keyframes carZoomIn {
+    0% { transform: scale(0.6) translateY(100px); opacity: 0; }
+    40% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(1.1) translateY(-10px); opacity: 1; }
+  }
+
+  @keyframes turnOnLights {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    20% { opacity: 0.2; }
+    30% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes beamFlash {
+    0% { opacity: 0; }
+    100% { opacity: 0.8; }
+  }
+
+  @keyframes beamExpand {
+    0% { opacity: 0.8; filter: blur(15px); }
+    100% { opacity: 1; filter: blur(35px); transform: scale(1.8); }
+  }
+
+  @keyframes fadeOutIntro {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes showCard {
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .car-container { transform: scale(0.7); }
+    .card { padding: 35px 22px; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- อนิเมชันฉากเปิดตัว รถสปอร์ตสีดำ + ไฟหน้า Neon -->
+<div class="car-intro">
+  <div class="car-container">
+    <div class="car-body">
+      <div class="headlight left"></div>
+      <div class="headlight right"></div>
+      <div class="light-beam left light-beam-active"></div>
+      <div class="light-beam right light-beam-active"></div>
+    </div>
+  </div>
+</div>
+
+<!-- การ์ดแนะนำตัวหลัก -->
+<div class="card-wrapper">
+  <div class="card">
+    <span class="badge-status">Welcome To My World</span>
+    
+    <h1>ยินดีต้อนรับสู่โปรไฟล์ของฉัน</h1>
+    
+    <p class="intro-text">
+      สวัสดีครับ! ผมชื่อ <strong class="highlight-name">กษิดิศ (Kasidit)</strong>
+    </p>
+
+    <div class="description">
+      ขณะนี้กำลังศึกษาอยู่ที่ <strong>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</strong>
+      <div class="tag-container">
+        <span class="tag">🚴‍♂️ ปั่นจักรยาน</span>
+        <span class="tag">💻 Computer Science</span>
+        <span class="tag">⚙️ Engineering</span>
+      </div>
+    </div>
+
+    <p class="github-note">⚡ นี่คือเว็บไซต์แรกของผมที่โฮสต์บน GitHub Pages!</p>
+
+    <a href="portfolio.html" class="btn-portfolio">
+      <span>คลิกชมพอร์ตโฟลิโอของผม</span>
+      <span>→</span>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
