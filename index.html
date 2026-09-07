@@ -52,7 +52,6 @@
     animation: fadeOutIntro 0.8s ease-in-out 3.8s forwards;
   }
 
-  /* เงาและโครงรถสปอร์ตสีดำ */
   .car-container {
     position: relative;
     width: 600px;
@@ -72,7 +71,6 @@
     box-shadow: 0 -5px 25px rgba(255, 255, 255, 0.03);
   }
 
-  /* หลังคารถสปอร์ตทรงกระจกโค้ง */
   .car-body::before {
     content: '';
     position: absolute;
@@ -85,7 +83,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* ไฟหน้ารถฝั่งซ้าย-ขวา (Headlights) */
   .headlight {
     position: absolute;
     bottom: 35px;
@@ -100,7 +97,6 @@
   .headlight.left { left: 30px; transform: skewX(-12deg); }
   .headlight.right { right: 30px; transform: skewX(12deg); }
 
-  /* ตัวหลอด LED ในไฟหน้า */
   .headlight::after {
     content: '';
     position: absolute;
@@ -111,7 +107,6 @@
     animation: turnOnLights 0.4s ease-in 1.2s forwards;
   }
 
-  /* แสงไฟหน้ารถพุ่งส่องออกมา (Light Beams) */
   .light-beam {
     position: absolute;
     bottom: -80px;
@@ -156,7 +151,6 @@
     overflow: hidden;
   }
 
-  /* เส้นแสงนีออนด้านบนการ์ด */
   .card::before {
     content: '';
     position: absolute;
@@ -165,6 +159,18 @@
     right: 0;
     height: 3px;
     background: linear-gradient(90deg, transparent, var(--cyan-glow), var(--blue-accent), transparent);
+  }
+
+  /* --- PROFILE IMAGE STYLES (เพิ่มใหม่) --- */
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--cyan-glow);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    margin: 0 auto 15px auto;
+    display: block;
   }
 
   .badge-status {
@@ -213,6 +219,12 @@
     text-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
   }
 
+  /* กำหนดสีฟ้าเรืองแสงให้ชื่อโรงเรียนมัธยม */
+  .highlight-school {
+    color: var(--blue-accent);
+    font-weight: 600;
+  }
+
   .description {
     color: var(--text-muted);
     font-size: 15px;
@@ -247,7 +259,6 @@
     margin-bottom: 28px;
   }
 
-  /* ปุ่มกดสั่งงานฉากเปิดซ้ำ หรือลิงก์ไปพอร์ต */
   .btn-portfolio {
     display: inline-flex;
     align-items: center;
@@ -333,6 +344,9 @@
 <!-- การ์ดแนะนำตัวหลัก -->
 <div class="card-wrapper">
   <div class="card">
+    <!-- เพิ่มรูปโปรไฟล์ hero.png ตรงนี้ -->
+    <img src="hero.png" alt="Profile Picture" class="profile-avatar">
+
     <span class="badge-status">Welcome To My World</span>
     
     <h1>ยินดีต้อนรับสู่โปรไฟล์ของฉัน</h1>
@@ -342,11 +356,11 @@
     </p>
 
     <div class="description">
-      ขณะนี้กำลังศึกษาอยู่ที่ <strong>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</strong>
+      ขณะนี้กำลังศึกษาอยู่ที่ <strong class="highlight-school">โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</strong>
       <div class="tag-container">
         <span class="tag">🚴‍♂️ ปั่นจักรยาน</span>
-        <span class="tag">💻 Computer Science</span>
-        <span class="tag">⚙️ Engineering</span>
+        <span class="tag">⛴️ Logistics</span>
+        <span class="tag">💵 บริหารธุรกิจ</span>
       </div>
     </div>
 
