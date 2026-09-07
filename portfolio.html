@@ -42,11 +42,100 @@
       radial-gradient(circle at 85% 85%, rgba(79, 172, 254, 0.06) 0%, transparent 50%);
   }
 
+  /* --- CAR INTRO OVERLAY --- */
+  .car-intro {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    animation: fadeOutIntro 0.8s cubic-bezier(0.76, 0, 0.24, 1) 3.6s forwards;
+  }
+
+  .car-container {
+    position: relative;
+    width: 650px;
+    max-width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: carZoomIn 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .car-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0.85) contrast(1.1);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ไฟหน้า LED ซ้าย-ขวา ตามตำแหน่งรถ Tesla Roadster */
+  .light-glow {
+    position: absolute;
+    z-index: 3;
+    width: 14%;
+    height: 3.5%;
+    background: #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 
+      0 0 15px #FFFFFF,
+      0 0 30px var(--cyan-glow),
+      0 0 60px var(--cyan-glow),
+      0 0 90px var(--blue-accent);
+    opacity: 0;
+    animation: turnOnHeadlights 0.4s ease-in 1.0s forwards;
+  }
+
+  .light-glow.left {
+    top: 48.5%;
+    left: 11.5%;
+    transform: rotate(-10deg);
+  }
+
+  .light-glow.right {
+    top: 48.5%;
+    right: 11.5%;
+    transform: rotate(10deg);
+  }
+
+  /* ลำแสงไฟหน้ารถส่องออกข้างหน้า (Light Beams) */
+  .light-beam-real {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    width: 450px;
+    height: 600px;
+    background: radial-gradient(ellipse at top, rgba(0, 242, 254, 0.85) 0%, rgba(79, 172, 254, 0.2) 45%, transparent 80%);
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    opacity: 0;
+    filter: blur(25px);
+    pointer-events: none;
+    animation: beamActivate 2.0s ease-out 1.2s forwards;
+  }
+
+  .light-beam-real.left {
+    left: -120px;
+    transform: rotate(-35deg) translateY(-20px);
+  }
+
+  .light-beam-real.right {
+    right: -120px;
+    transform: rotate(35deg) translateY(-20px);
+  }
+
   /* --- HEADER HERO SECTION --- */
   header {
     padding: 50px 24px 20px;
     max-width: 900px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInContent 0.8s ease-out 3.8s forwards;
   }
 
   .hero-card {
@@ -152,6 +241,9 @@
     max-width: 900px;
     margin: 0 auto 30px;
     padding: 0 24px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInContent 0.8s ease-out 4.0s forwards;
   }
 
   nav.tabs {
@@ -201,6 +293,9 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 0 24px 60px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInContent 0.8s ease-out 4.1s forwards;
   }
 
   .panel {
@@ -502,7 +597,40 @@
     border-top: 1px solid var(--card-border);
   }
 
-  /* Animations & Transitions */
+  /* --- KEYFRAME ANIMATIONS --- */
+  @keyframes carZoomIn {
+    0% { transform: scale(0.7) translateY(40px); opacity: 0; }
+    40% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(1.1) translateY(-10px); opacity: 1; }
+  }
+
+  @keyframes turnOnHeadlights {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    40% { opacity: 0.3; }
+    60% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes beamActivate {
+    0% { opacity: 0; filter: blur(25px); }
+    100% { opacity: 0.9; filter: blur(35px); transform: scale(1.5); }
+  }
+
+  @keyframes fadeOutIntro {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes fadeInContent {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @keyframes slideUp {
     from {
       opacity: 0;
@@ -559,6 +687,22 @@
 </head>
 
 <body>
+
+<!-- ฉากโหลดรถสปอร์ต (Tesla Roadster) พร้อมเอฟเฟกต์ไฟหน้ารถ -->
+<div class="car-intro">
+  <div class="car-container">
+    <!-- ภาพรถสปอร์ต Tesla Roadster -->
+    <img class="car-image" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1000&auto=format&fit=crop" alt="Tesla Roadster">
+    
+    <!-- ดวงไฟ LED นีออนพุ่งสว่าง -->
+    <div class="light-glow left"></div>
+    <div class="light-glow right"></div>
+    
+    <!-- ลำแสงส่องกระจายออกข้างหน้า -->
+    <div class="light-beam-real left"></div>
+    <div class="light-beam-real right"></div>
+  </div>
+</div>
 
 <div class="curtain" id="curtain"></div>
 
@@ -725,7 +869,6 @@
 </footer>
 
 <script>
-  // สามารถแก้ไข/เพิ่มรายการเกียรติบัตรตรงนี้ได้
   const honors = [
     { img: 'cert1.jpg', title: 'เกียรติบัตรเข้าร่วมกิจกรรมวิชาการและเทคโนโลยี', year: '2567' },
     { img: 'cert2.jpg', title: 'เกียรติบัตรการแข่งขันทักษะคอมพิวเตอร์', year: '2567' }
