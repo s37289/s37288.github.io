@@ -37,9 +37,6 @@
     line-height: 1.7;
     min-height: 100vh;
     overflow-x: hidden;
-    background-image: 
-      radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 85% 85%, rgba(79, 172, 254, 0.06) 0%, transparent 50%);
   }
 
   /* --- CAR INTRO OVERLAY --- */
@@ -74,7 +71,7 @@
     z-index: 2;
   }
 
-  /* ไฟหน้า LED ซ้าย-ขวา ตามตำแหน่งรถ Tesla Roadster */
+  /* ดวงไฟหน้า LED */
   .light-glow {
     position: absolute;
     z-index: 3;
@@ -84,9 +81,9 @@
     border-radius: 50%;
     box-shadow: 
       0 0 15px #FFFFFF,
-      0 0 30px var(--cyan-glow),
-      0 0 60px var(--cyan-glow),
-      0 0 90px var(--blue-accent);
+      0 0 35px var(--cyan-glow),
+      0 0 75px var(--cyan-glow),
+      0 0 110px var(--blue-accent);
     opacity: 0;
     animation: turnOnHeadlights 0.4s ease-in 1.0s forwards;
   }
@@ -103,29 +100,28 @@
     transform: rotate(10deg);
   }
 
-  /* ลำแสงไฟหน้ารถส่องออกข้างหน้า (Light Beams) */
-  .light-beam-real {
+  /* ลำแสงไฟหน้ารถ (กระจายแสงแบบละมุน ไม่ใช้อย่างเรขาคณิต) */
+  .light-beam-soft {
     position: absolute;
     z-index: 1;
-    top: 50%;
-    width: 450px;
-    height: 600px;
-    background: radial-gradient(ellipse at top, rgba(0, 242, 254, 0.85) 0%, rgba(79, 172, 254, 0.2) 45%, transparent 80%);
-    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    top: 45%;
+    width: 300px;
+    height: 400px;
+    background: radial-gradient(circle at top, rgba(0, 242, 254, 0.45) 0%, rgba(79, 172, 254, 0.1) 50%, transparent 80%);
     opacity: 0;
-    filter: blur(25px);
+    filter: blur(40px);
     pointer-events: none;
     animation: beamActivate 2.0s ease-out 1.2s forwards;
   }
 
-  .light-beam-real.left {
-    left: -120px;
-    transform: rotate(-35deg) translateY(-20px);
+  .light-beam-soft.left {
+    left: -20px;
+    transform: rotate(-25deg);
   }
 
-  .light-beam-real.right {
-    right: -120px;
-    transform: rotate(35deg) translateY(-20px);
+  .light-beam-soft.right {
+    right: -20px;
+    transform: rotate(25deg);
   }
 
   /* --- HEADER HERO SECTION --- */
@@ -601,20 +597,20 @@
   @keyframes carZoomIn {
     0% { transform: scale(0.7) translateY(40px); opacity: 0; }
     40% { transform: scale(1) translateY(0); opacity: 1; }
-    100% { transform: scale(1.1) translateY(-10px); opacity: 1; }
+    100% { transform: scale(1.08) translateY(-10px); opacity: 1; }
   }
 
   @keyframes turnOnHeadlights {
     0% { opacity: 0; }
     20% { opacity: 1; }
-    40% { opacity: 0.3; }
+    40% { opacity: 0.2; }
     60% { opacity: 1; }
     100% { opacity: 1; }
   }
 
   @keyframes beamActivate {
-    0% { opacity: 0; filter: blur(25px); }
-    100% { opacity: 0.9; filter: blur(35px); transform: scale(1.5); }
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1.3); }
   }
 
   @keyframes fadeOutIntro {
@@ -688,19 +684,18 @@
 
 <body>
 
-<!-- ฉากโหลดรถสปอร์ต (Tesla Roadster) พร้อมเอฟเฟกต์ไฟหน้ารถ -->
+<!-- ฉากโหลดรถสปอร์ต (Tesla Roadster) แบบไม่มีรูปทรงเรขาคณิต -->
 <div class="car-intro">
   <div class="car-container">
-    <!-- ภาพรถสปอร์ต Tesla Roadster -->
     <img class="car-image" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1000&auto=format&fit=crop" alt="Tesla Roadster">
     
-    <!-- ดวงไฟ LED นีออนพุ่งสว่าง -->
+    <!-- จุดสว่างไฟหน้า LED -->
     <div class="light-glow left"></div>
     <div class="light-glow right"></div>
     
-    <!-- ลำแสงส่องกระจายออกข้างหน้า -->
-    <div class="light-beam-real left"></div>
-    <div class="light-beam-real right"></div>
+    <!-- แสงฟุ้งละมุนแบบ Soft Glow -->
+    <div class="light-beam-soft left"></div>
+    <div class="light-beam-soft right"></div>
   </div>
 </div>
 
@@ -752,7 +747,7 @@
     <div class="profile-grid">
       <div class="info-box">
         <span class="label">ชื่อ-นามสกุล</span>
-        <span class="value">นายกษิดิศ วิทยารัมภะ(Kasidit Wittayarampa)</span>
+        <span class="value">นายกษิดิศ (Kasidit)</span>
       </div>
       <div class="info-box">
         <span class="label">การศึกษา</span>
@@ -760,11 +755,11 @@
       </div>
       <div class="info-box">
         <span class="label">ความสนใจ</span>
-        <span class="value">Logistics</span>
+        <span class="value">Computer Science & Engineering</span>
       </div>
       <div class="info-box">
         <span class="label">งานอดิเรก</span>
-        <span class="value">ปั่นจักรยาน / เล่นบาส</span>
+        <span class="value">ปั่นจักรยาน / เขียนโปรแกรม</span>
       </div>
     </div>
   </section>
@@ -801,9 +796,9 @@
     </div>
     <ul class="feature-list">
       <li>ปั่นจักรยานออกกำลังกายและกระชับมิตรภาพ</li>
-      <li>เข้าร่วมการเเข่งขันบาส</li>
-      <li>เข้าร่วมการเเข่งขันบาสยาเสพติด</li>
-      <li>เข้าร่วมวิ่งมาราธอน5km 34นาที เเบบไม่ซ้อม😎</li>
+      <li>ศึกษาและพัฒนาโปรแกรมคอมพิวเตอร์ด้วยตนเอง</li>
+      <li>เข้าร่วมกิจกรรมวิชาการและเทคโนโลยีในโรงเรียน</li>
+      <li>กิจกรรมจิตอาสาและพัฒนาโรงเรียน</li>
     </ul>
   </section>
 
@@ -812,10 +807,10 @@
       <h2>ความสามารถพิเศษ & ทักษะ</h2>
     </div>
     <ul class="feature-list">
-      <li>เรียนรู้กีฬาชนิดต่างๆได้ไว</li>
-      <li>ทักษะการเเก้ไขปัญหาเฉพาะหน้า</li>
+      <li>Computer Programming & Web Development</li>
+      <li>ทักษะการคิดวิเคราะห์เชิงวิศวกรรม (Engineering Mindset)</li>
       <li>การปั่นจักรยานระยะทางไกล (Cycling)</li>
-      <li>เล่นบาสเเบบเจ๋งๆ</li>
+      <li>การใช้งานโปรแกรมและเครื่องมือคอมพิวเตอร์</li>
     </ul>
   </section>
 
@@ -834,21 +829,21 @@
       <a href="tel:0800000000" class="contact-card">
         <div class="contact-left">
           <span class="contact-type">PHONE</span>
-          <span class="contact-value">080-251-1769</span>
+          <span class="contact-value">080-XXX-XXXX</span>
         </div>
         <span class="contact-arrow">↗</span>
       </a>
-      <a href="mailto:s37289@banbung.ac.th" class="contact-card">
+      <a href="mailto:kasidit@example.com" class="contact-card">
         <div class="contact-left">
           <span class="contact-type">EMAIL</span>
-          <span class="contact-value">s37289@banbung.ac.th</span>
+          <span class="contact-value">kasidit@example.com</span>
         </div>
         <span class="contact-arrow">↗</span>
       </a>
-      <a href=https://www.facebook.com/kasidit.wittayarampa.2025?locale=th_TH class="contact-card">
+      <a href="https://github.com" target="_blank" rel="noopener" class="contact-card">
         <div class="contact-left">
-          <span class="contact-type">FACEBOOK</span>
-          <span class="contact-value">Kasidit Wittayarampa</span>
+          <span class="contact-type">GITHUB</span>
+          <span class="contact-value">Kasidit GitHub Pages</span>
         </div>
         <span class="contact-arrow">↗</span>
       </a>
@@ -870,8 +865,11 @@
 
 <script>
   const honors = [
-    { img: 'cert1.jpg', title: 'เกียรติบัตรเข้าร่วมกิจกรรมวิชาการและเทคโนโลยี', year: '2567' },
-    { img: 'cert2.jpg', title: 'เกียรติบัตรการแข่งขันทักษะคอมพิวเตอร์', year: '2567' }
+    { img: 'cert7.jpg', title: 'เกียรติบัตร เข้าร่วมกิจกรรมทางวิชาการและเทคโนโลยี', year: '2567' },
+    { img: 'cert8.jpg', title: 'เกียรติบัตร การแข่งขันทักษะทางคอมพิวเตอร์และเทคโนโลยี', year: '2567' },
+    { img: 'cert9.jpg', title: 'เกียรติบัตร การพัฒนาและทดสอบทักษะดิจิทัล', year: '2567' },
+    { img: 'cert10.jpg', title: 'เกียรติบัตร เข้าร่วมกิจกรรมจิตอาสาและพัฒนาสังคม', year: '2567' },
+    { img: 'cert11.jpg', title: 'เกียรติบัตร รางวัลความประพฤติดีและส่งเสริมกิจกรรม', year: '2567' }
   ];
 
   const honorGrid = document.getElementById('honor-grid');
