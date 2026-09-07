@@ -9,16 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-dark: #05070B;
-    --card-bg: rgba(13, 18, 28, 0.75);
-    --card-border: rgba(0, 242, 254, 0.15);
-    --cyan-glow: #00F2FE;
-    --blue-accent: #4FACFE;
-    --accent-gradient: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
-    --accent-glow-shadow: rgba(0, 242, 254, 0.25);
-    --text-main: #F3F4F6;
-    --text-muted: #9CA3AF;
-    --text-dim: #6B7280;
+    --bg-dark: #0B0C10;
+    --card-bg: rgba(22, 24, 30, 0.8);
+    --card-border: rgba(243, 169, 83, 0.2);
+    --gold-glow: #F3A953;
+    --amber-accent: #E2C044;
+    --accent-gradient: linear-gradient(135deg, #F3A953 0%, #E2C044 100%);
+    --accent-glow-shadow: rgba(243, 169, 83, 0.25);
+    --text-main: #F8F9FA;
+    --text-muted: #A0A5B1;
+    --text-dim: #6C727F;
     --radius-lg: 24px;
     --radius-md: 16px;
     --radius-sm: 10px;
@@ -32,6 +32,9 @@
 
   body {
     background-color: var(--bg-dark);
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(243, 169, 83, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(226, 192, 68, 0.05) 0px, transparent 50%);
     color: var(--text-main);
     font-family: 'Prompt', 'Plus Jakarta Sans', sans-serif;
     line-height: 1.7;
@@ -59,7 +62,7 @@
     display: flex;
     align-items: center;
     gap: 32px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 242, 254, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(243, 169, 83, 0.05);
     position: relative;
     overflow: hidden;
   }
@@ -84,7 +87,7 @@
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(0, 242, 254, 0.4);
+    border: 2px solid rgba(243, 169, 83, 0.5);
     box-shadow: 0 0 25px var(--accent-glow-shadow);
   }
 
@@ -111,9 +114,9 @@
     gap: 6px;
     padding: 4px 12px;
     border-radius: 20px;
-    background: rgba(0, 242, 254, 0.08);
-    border: 1px solid rgba(0, 242, 254, 0.25);
-    color: var(--cyan-glow);
+    background: rgba(243, 169, 83, 0.1);
+    border: 1px solid rgba(243, 169, 83, 0.3);
+    color: var(--gold-glow);
     font-size: 11.5px;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -126,8 +129,8 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--cyan-glow);
-    box-shadow: 0 0 8px var(--cyan-glow);
+    background: var(--gold-glow);
+    box-shadow: 0 0 8px var(--gold-glow);
   }
 
   .hero-info h1 {
@@ -158,7 +161,7 @@
   }
 
   nav.tabs {
-    background: rgba(13, 18, 28, 0.85);
+    background: rgba(18, 20, 26, 0.9);
     border: 1px solid var(--card-border);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -168,7 +171,7 @@
     gap: 4px;
     overflow-x: auto;
     scrollbar-width: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   }
 
   nav.tabs::-webkit-scrollbar { display: none; }
@@ -194,7 +197,7 @@
 
   nav.tabs button.active {
     background: var(--accent-gradient);
-    color: #05070B;
+    color: #0B0C10;
     font-weight: 700;
     box-shadow: 0 4px 15px var(--accent-glow-shadow);
   }
@@ -217,7 +220,7 @@
     -webkit-backdrop-filter: blur(24px);
     border-radius: var(--radius-lg);
     padding: 36px 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
   }
 
   .panel.active {
@@ -243,7 +246,7 @@
     height: 20px;
     background: var(--accent-gradient);
     border-radius: 4px;
-    box-shadow: 0 0 10px var(--cyan-glow);
+    box-shadow: 0 0 10px var(--gold-glow);
   }
 
   /* Profile Grid */
@@ -295,7 +298,7 @@
 
   .edu-card:hover {
     transform: translateX(6px);
-    border-color: rgba(0, 242, 254, 0.4);
+    border-color: rgba(243, 169, 83, 0.5);
   }
 
   .edu-icon {
@@ -353,15 +356,15 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: rgba(0, 242, 254, 0.1);
-    color: var(--cyan-glow);
+    background: rgba(243, 169, 83, 0.15);
+    color: var(--gold-glow);
     font-size: 12px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 8px rgba(243, 169, 83, 0.2);
   }
 
   /* Honor Grid */
@@ -384,8 +387,8 @@
 
   .honor-card:hover {
     transform: translateY(-6px);
-    border-color: var(--cyan-glow);
-    box-shadow: 0 12px 30px rgba(0, 242, 254, 0.15);
+    border-color: var(--gold-glow);
+    box-shadow: 0 12px 30px rgba(243, 169, 83, 0.15);
   }
 
   .honor-thumb {
@@ -413,7 +416,7 @@
 
   .honor-year {
     font-size: 12px;
-    color: var(--cyan-glow);
+    color: var(--gold-glow);
     font-weight: 600;
   }
 
@@ -447,7 +450,7 @@
 
   .contact-card:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(0, 242, 254, 0.4);
+    border-color: rgba(243, 169, 83, 0.5);
   }
 
   .contact-left {
@@ -470,7 +473,7 @@
   }
 
   .contact-arrow {
-    color: var(--cyan-glow);
+    color: var(--gold-glow);
     font-size: 18px;
   }
 
@@ -485,7 +488,7 @@
     align-items: center;
     gap: 10px;
     background: var(--accent-gradient);
-    color: #05070B;
+    color: #0B0C10;
     text-decoration: none;
     font-weight: 700;
     font-size: 15px;
@@ -762,7 +765,7 @@
   } else {
     honorGrid.innerHTML = honors.map(h => `
       <a class="honor-card" href="${h.img}" target="_blank" rel="noopener">
-        <img class="honor-thumb" src="${h.img}" alt="${h.title}" onerror="this.src='https://via.placeholder.com/300x225/0d121c/00f2fe?text=Certificate'">
+        <img class="honor-thumb" src="${h.img}" alt="${h.title}" onerror="this.src='https://via.placeholder.com/300x225/16181e/f3a953?text=Certificate'">
         <div class="honor-body">
           <p class="honor-title">${h.title}</p>
           ${h.year ? `<span class="honor-year">พ.ศ. ${h.year}</span>` : ''}
