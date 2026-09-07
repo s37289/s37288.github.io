@@ -39,91 +39,6 @@
     overflow-x: hidden;
   }
 
-  /* --- CAR INTRO OVERLAY --- */
-  .car-intro {
-    position: fixed;
-    inset: 0;
-    background: #000000;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    animation: fadeOutIntro 0.8s cubic-bezier(0.76, 0, 0.24, 1) 3.6s forwards;
-  }
-
-  .car-container {
-    position: relative;
-    width: 650px;
-    max-width: 90vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: carZoomIn 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .car-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: brightness(0.85) contrast(1.1);
-    position: relative;
-    z-index: 2;
-  }
-
-  /* ดวงไฟหน้า LED */
-  .light-glow {
-    position: absolute;
-    z-index: 3;
-    width: 14%;
-    height: 3.5%;
-    background: #FFFFFF;
-    border-radius: 50%;
-    box-shadow: 
-      0 0 15px #FFFFFF,
-      0 0 35px var(--cyan-glow),
-      0 0 75px var(--cyan-glow),
-      0 0 110px var(--blue-accent);
-    opacity: 0;
-    animation: turnOnHeadlights 0.4s ease-in 1.0s forwards;
-  }
-
-  .light-glow.left {
-    top: 48.5%;
-    left: 11.5%;
-    transform: rotate(-10deg);
-  }
-
-  .light-glow.right {
-    top: 48.5%;
-    right: 11.5%;
-    transform: rotate(10deg);
-  }
-
-  /* ลำแสงไฟหน้ารถ (กระจายแสงแบบละมุน ไม่ใช้อย่างเรขาคณิต) */
-  .light-beam-soft {
-    position: absolute;
-    z-index: 1;
-    top: 45%;
-    width: 300px;
-    height: 400px;
-    background: radial-gradient(circle at top, rgba(0, 242, 254, 0.45) 0%, rgba(79, 172, 254, 0.1) 50%, transparent 80%);
-    opacity: 0;
-    filter: blur(40px);
-    pointer-events: none;
-    animation: beamActivate 2.0s ease-out 1.2s forwards;
-  }
-
-  .light-beam-soft.left {
-    left: -20px;
-    transform: rotate(-25deg);
-  }
-
-  .light-beam-soft.right {
-    right: -20px;
-    transform: rotate(25deg);
-  }
-
   /* --- HEADER HERO SECTION --- */
   header {
     padding: 50px 24px 20px;
@@ -131,7 +46,7 @@
     margin: 0 auto;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInContent 0.8s ease-out 3.8s forwards;
+    animation: fadeInContent 0.8s ease-out 0.2s forwards;
   }
 
   .hero-card {
@@ -239,7 +154,7 @@
     padding: 0 24px;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInContent 0.8s ease-out 4.0s forwards;
+    animation: fadeInContent 0.8s ease-out 0.4s forwards;
   }
 
   nav.tabs {
@@ -291,7 +206,7 @@
     padding: 0 24px 60px;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInContent 0.8s ease-out 4.1s forwards;
+    animation: fadeInContent 0.8s ease-out 0.5s forwards;
   }
 
   .panel {
@@ -593,33 +508,7 @@
     border-top: 1px solid var(--card-border);
   }
 
-  /* --- KEYFRAME ANIMATIONS --- */
-  @keyframes carZoomIn {
-    0% { transform: scale(0.7) translateY(40px); opacity: 0; }
-    40% { transform: scale(1) translateY(0); opacity: 1; }
-    100% { transform: scale(1.08) translateY(-10px); opacity: 1; }
-  }
-
-  @keyframes turnOnHeadlights {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    40% { opacity: 0.2; }
-    60% { opacity: 1; }
-    100% { opacity: 1; }
-  }
-
-  @keyframes beamActivate {
-    0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1.3); }
-  }
-
-  @keyframes fadeOutIntro {
-    to {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-
+  /* --- ANIMATIONS --- */
   @keyframes fadeInContent {
     to {
       opacity: 1;
@@ -683,21 +572,6 @@
 </head>
 
 <body>
-
-<!-- ฉากโหลดรถสปอร์ต (Tesla Roadster) แบบไม่มีรูปทรงเรขาคณิต -->
-<div class="car-intro">
-  <div class="car-container">
-    <img class="car-image" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1000&auto=format&fit=crop" alt="Tesla Roadster">
-    
-    <!-- จุดสว่างไฟหน้า LED -->
-    <div class="light-glow left"></div>
-    <div class="light-glow right"></div>
-    
-    <!-- แสงฟุ้งละมุนแบบ Soft Glow -->
-    <div class="light-beam-soft left"></div>
-    <div class="light-beam-soft right"></div>
-  </div>
-</div>
 
 <div class="curtain" id="curtain"></div>
 
